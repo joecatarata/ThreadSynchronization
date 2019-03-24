@@ -1,0 +1,19 @@
+package synchro;
+import java.util.concurrent.Semaphore;
+
+public class Passenger implements Runnable{
+	
+	private Semaphore mutex2;
+	private Semaphore boarding;
+	private Semaphore unboarding;
+	private Semaphore doneBoarding;
+	private Semaphore doneUnboarding;
+	
+	public Passenger(int totalInCar, Semaphore mutex2, Semaphore boarding, Semaphore unboarding, Semaphore doneBoarding, Semaphore doneUnboarding)
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

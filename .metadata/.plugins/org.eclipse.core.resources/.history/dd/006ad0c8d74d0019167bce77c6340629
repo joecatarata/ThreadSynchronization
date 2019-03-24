@@ -1,0 +1,9 @@
+package synchro;
+
+public class Car implements Runnable{
+	private int C;
+	public Car(int C) {
+		this.C = C;
+		
+	}
+}
