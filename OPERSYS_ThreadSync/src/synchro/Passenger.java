@@ -64,9 +64,11 @@ public class Passenger extends Thread{
 			doneUnboarding.release();
 		mutex2.release();
 	}
-	
+	/**
+	 * This function simulates the boarding of this passenger in the car.
+	 */
 	public void board() {
-		System.out.println("Passenger " + this.ID + ": I'm boarding!");
+		System.out.println("Passenger " + this.ID + ": I'm going on a trip in my favorite rocket ship!");
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -74,7 +76,9 @@ public class Passenger extends Thread{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * This function simulates the passenger getting off the car.
+	 */
 	public void unboard() {
 		System.out.println("Passenger " + this.ID + ": I'm unboarding!");
 		try {

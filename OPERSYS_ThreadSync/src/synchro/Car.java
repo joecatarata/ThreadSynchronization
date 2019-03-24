@@ -20,6 +20,7 @@ public class Car extends Thread{
 		// TODO Auto-generated method stub
 		while(true) {
 			load();
+			System.out.println("Done loading passengers!");
 			boarding.release(C);
 			try {
 				doneBoarding.acquire();
@@ -31,6 +32,7 @@ public class Car extends Thread{
 			runTrack();
 			
 			unload();
+			System.out.println("Done unloading passengers!");
 			unboarding.release(C);
 			try {
 				doneUnboarding.acquire();
@@ -41,6 +43,9 @@ public class Car extends Thread{
 		}
 	}
 	
+	/**
+	 * This function simulates the loading of the passengers onto the car.
+	 */
 	public void load() {
 		System.out.println("Loading passengers..");
 		try {
@@ -49,10 +54,12 @@ public class Car extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Done loading passengers!");
+		
 		return;
 	}
-	
+	/**
+	 * This function simulates the unloading of the passengers inside the car.
+	 */
 	public void unload() {
 		System.out.println("Unloading passengers..");
 		try {
@@ -61,10 +68,13 @@ public class Car extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Done unloading passengers!");
+		
 		return;
 	}
 	
+	/**
+	 * This function simulates the full journey of the car in the track.
+	 */
 	public void runTrack() {
 		System.out.println("Running on track...");
 		try {
