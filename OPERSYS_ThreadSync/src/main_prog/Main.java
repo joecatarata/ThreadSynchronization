@@ -1,8 +1,15 @@
+/*
+ * JOE SAM R CATARATA 
+ * JOHN MIKO P CHENG
+ * CHARLES KIEFER T CHONG
+ */
+
 package main_prog;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
@@ -17,30 +24,60 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.print("Input the total number of passengers (N): ");
 		String[] input = br.readLine().split(" ");
-		
-		//input like
-		//10 5 
+		int N = Integer.parseInt(input[0]);
+		int C = N/2;
+		Passenger[] threads = new Passenger[N];
+		ArrayList<Passenger> thread_list = new ArrayList<Passenger>();
+		int mode = -1;
+		System.out.println("Input the experiment (1 or 2): ");
+		mode = Integer.parseInt(br.readLine());
+
 		Semaphore mutex1 = new Semaphore(1);
 		Semaphore mutex2 = new Semaphore(1);
 		Semaphore boarding = new Semaphore(0);
 		Semaphore unboarding = new Semaphore(0);
 		Semaphore doneBoarding = new Semaphore(0);
 		Semaphore doneUnboarding = new Semaphore(0);
-		
-		int N = Integer.parseInt(input[0]); //total number of passengers
-		int C = N/4; //max number of people in car
 		System.out.println("Max number of passengers = " + C);
-		Passenger[] threads = new Passenger[N];
 		Car car = new Car(C, boarding, unboarding, doneBoarding, doneUnboarding);
-//		int C = Integer.parseInt(input[1]);
 		System.out.println("Starting threads..");
 		car.start();
 		
-		for(int i=0; i<N; i++) {
-			threads[i] = new Passenger(C, i+1, mutex1, mutex2, boarding, unboarding
-										, doneBoarding, doneUnboarding);
-			threads[i].start();
+		if(mode == 1) {
+			for(int i=0; i<N; i++) {
+				Passenger thread = new Passenger(C, i+1, mutex1, mutex2, boarding, unboarding
+											, doneBoarding, doneUnboarding);
+				thread_list.add(thread);
+				thread.start();
+			}
+		}else if(mode == 2){
+			
+			long end = System.currentTimeMillis()+60000;
+    		Timer t = new Timer();
+			t.scheduleAtFixedRate(
+			    new TimerTask()
+			    {
+			    	int threadId = 1;
+			        public void run()
+			        {
+			        	
+			        	if(System.currentTimeMillis() < end) {
+			        		for(int i=0; i<N; i++) {
+    							Passenger thread = new Passenger(C, threadId++, mutex1, mutex2, boarding, unboarding
+    														, doneBoarding, doneUnboarding);
+    							thread_list.add(thread);
+    							thread.start();
+    						}
+			        	}else {
+			        		cancel();
+			        	}
+			        	
+			        }
+			    }, 0, 1000); 
+        	
+			
 		}
+		
 		
 		//Checks if deadlock happened
 		Timer t = new Timer();
@@ -48,17 +85,18 @@ public class Main {
 		t.scheduleAtFixedRate(
 		    new TimerTask()
 		    {
+		    	int deadLockedCtr = 0;
 		        public void run()
 		        {
-		        	int deadLockedCtr = 0;
+		        	
 		        	for(int i=0; i<N; i++) {
-		    			if(threads[i].isAlive())
+		    			if(thread_list.get(i).isAlive())
 		    					deadLockedCtr++;
 		    		}
 		        	System.out.println("Checking deadlocked threads every 5 seconds");
 		        	System.out.println("Deadlocked threads: " + deadLockedCtr);
 		        }
-		    }, 0, 5000); 
+		    }, 5000, 5000); 
 	}
 
 }

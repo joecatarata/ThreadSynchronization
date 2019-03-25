@@ -48,12 +48,12 @@ public class Car extends Thread{
 	 */
 	public void load() {
 		System.out.println("Loading passengers..");
-		try {
-			Thread.sleep(200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(200);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		return;
 	}
@@ -62,12 +62,12 @@ public class Car extends Thread{
 	 */
 	public void unload() {
 		System.out.println("Unloading passengers..");
-		try {
-			Thread.sleep(200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(200);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
 		return;
 	}
@@ -77,12 +77,12 @@ public class Car extends Thread{
 	 */
 	public void runTrack() {
 		System.out.println("Running on track...");
-		try {
-			Thread.sleep(200);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(200);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		System.out.println("Done running on track!");
 		return;
 	}

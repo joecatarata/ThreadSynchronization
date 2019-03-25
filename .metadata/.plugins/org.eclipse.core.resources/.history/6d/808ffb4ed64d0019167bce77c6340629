@@ -1,8 +1,0 @@
-package synchro;
-
-public class Car {
-	private int C;
-	public Car(int C) {
-		
-	}
-}
